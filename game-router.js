@@ -67,6 +67,107 @@ function gW(){toast('Seçildi!');bk()}
 // ═══ NEW HOMEPAGE OVERRIDE ═══
 window.addEventListener('load', function() {
 
+  // ═══ SOUND SYSTEM ═══
+  var _audioCtx = null;
+  function _getAudio() {
+    if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return _audioCtx;
+  }
+  
+  // Click sound - short pleasant beep
+  window.playClick = function() {
+    try {
+      var ctx = _getAudio();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.1);
+    } catch(e) {}
+  };
+
+  // Correct sound - happy double beep
+  window.playCorrect = function() {
+    try {
+      var ctx = _getAudio();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.setValueAtTime(1100, ctx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.25);
+    } catch(e) {}
+  };
+
+  // Wrong sound - low buzz
+  window.playWrong = function() {
+    try {
+      var ctx = _getAudio();
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.3);
+    } catch(e) {}
+  };
+
+  // Global click handler for ALL buttons
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    // Walk up to find button/clickable
+    for (var i = 0; i < 5; i++) {
+      if (!el) break;
+      if (el.tagName === 'BUTTON' || el.classList.contains('btn') || el.classList.contains('t-card') || el.classList.contains('gc-new') || el.onclick || el.style.cursor === 'pointer') {
+        playClick();
+        return;
+      }
+      el = el.parentElement;
+    }
+  }, true);
+
+  // Override showGameNotif to play sounds
+  var _origShowGameNotif = window.showGameNotif;
+  window.showGameNotif = function(emoji, text, isGood) {
+    if (isGood) playCorrect(); else playWrong();
+    if (typeof _origShowGameNotif === 'function') _origShowGameNotif(emoji, text, isGood);
+  };
+
+  // Override showMemNotif to play sounds
+  var _origShowMemNotif = window.showMemNotif;
+  if (typeof showMemNotif === 'function') {
+    window.showMemNotif = function(emoji, text, isGood) {
+      if (isGood) playCorrect(); else playWrong();
+      if (typeof _origShowMemNotif === 'function') _origShowMemNotif(emoji, text, isGood);
+    };
+  }
+
+  // Override toast to play sounds for correct/wrong
+  var _origToast = window.toast;
+  window.toast = function(msg, ok) {
+    if (ok === false) playWrong();
+    else if (typeof ok === 'undefined' || ok === true) { if (msg && (msg.includes('✅') || msg.includes('Doğru'))) playCorrect(); else playClick(); }
+    if (typeof _origToast === 'function') _origToast(msg, ok);
+  };
+
+
   // Inject CSS matching approved demo exactly
   var _css = document.createElement('style');
   _css.textContent = '' +
@@ -266,7 +367,7 @@ window.addEventListener('load', function() {
     // Hide p-home first
     var _ph=document.getElementById('p-home');
     if(_ph){_ph.classList.add('hid');_ph.style.display='none';}
-    // Admin: direct handling for reliability
+    // Admin: direct handling
     if(pg==='admin'){
       if(typeof curUser==='undefined'||!curUser||curUser.role!=='ADMIN'){if(typeof toast==='function')toast('Admin yetkisi gerekli!',false);goSec('home');return;}
       document.querySelectorAll('[id^="p-"]').forEach(function(e){e.classList.add('hid');e.style.display='none';});
