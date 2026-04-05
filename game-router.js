@@ -329,14 +329,14 @@ window.addEventListener('load', function() {
   // Build game cards for home page with new style
   window._buildGameCards = function() {
     var games = [
+      {e:'\ud83c\udfac',t:'STREAM',n:'Yayıncı Oyunları',d:'Chat ile interaktif 7 farklı oyun modu',diff:'İNTERAKTİF !',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(232,67,62,.12)',str:true},
       {e:'\u2694\ufe0f',t:'DIE',n:'Kim Hayatta Kalacak',d:'Karakterler birer birer eleniyor — sonuna kim kalacak?',diff:'Kolay',dc:'rgba(45,212,191,.08);color:#2dd4bf',ib:'rgba(245,158,11,.1)'},
       {e:'\ud83d\udc65',t:'TEAM',n:'Ekibini Kur',d:'Hayalindeki dream team\'i oluştur ve paylaş',diff:'Kolay',dc:'rgba(45,212,191,.08);color:#2dd4bf',ib:'rgba(139,92,246,.1)'},
       {e:'\ud83d\udcac',t:'QUOTE',n:'Replik Bil',d:'Efsane replikler — kime ait olduğunu tahmin et',diff:'Zor',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(245,158,11,.1)'},
       {e:'\ud83c\udfb2',t:'FATE',n:'Kaderini Seç',d:'Öldür, evlen, ghostla, kaç — kaderi sen belirle',diff:'Kolay',dc:'rgba(45,212,191,.08);color:#2dd4bf',ib:'rgba(232,67,62,.1)'},
       {e:'\ud83e\udd14',t:'FACE',n:'Yüzden Bil',d:'Bulanık fotoğraftan karakterin kim olduğunu bul',diff:'Zor',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(45,212,191,.1)'},
       {e:'\ud83e\udde0',t:'MEM',n:'Eightborn Moruq',d:'Sunucu hakkında ne kadar bilgilisin? Test et',diff:'Çok Zor',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(96,165,250,.1)'},
-      {e:'\u2753',t:'WHO',n:'Sen Kimsin?',d:'Kişilik testine gir — hangi karaktere benziyorsun?',diff:'KEŞFET!',dc:'rgba(139,92,246,.08);color:#8b5cf6',ib:'rgba(139,92,246,.1)'},
-      {e:'\ud83c\udfac',t:'STREAM',n:'Yayıncı Oyunları',d:'Chat ile interaktif 7 farklı oyun modu',diff:'İNTERAKTİF !',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(232,67,62,.12)',str:true}
+      {e:'\u2753',t:'WHO',n:'Sen Kimsin?',d:'Kişilik testine gir — hangi karaktere benziyorsun?',diff:'KEŞFET!',dc:'rgba(139,92,246,.08);color:#8b5cf6',ib:'rgba(139,92,246,.1)'}
     ];
     // Apply custom names
     var cn=window._customGameNames||{};
@@ -349,11 +349,15 @@ window.addEventListener('load', function() {
       var gd=GD.find(function(x){return x.t===g.t});
       return gd&&gd.on;
     }).map(function(g){
-      return '<div class="gc-new'+(g.str?' str':'')+'" onclick="playDirect(\''+g.t+'\')">' +
-        (g.str?'<div class="ltag">CANLI YAYIN</div>':'') +
-        '<div class="gc-i" style="background:'+g.ib+'">'+g.e+'</div>' +
-        '<h3>'+g.n+'</h3><p>'+g.d+'</p>' +
-        '<span class="diff" style="background:'+g.dc+'">'+g.diff+'</span></div>';
+      if(g.str) {
+        return '<div style="grid-column:span 4;background:linear-gradient(135deg,rgba(232,67,62,.1),rgba(139,92,246,.06));border:2px solid rgba(232,67,62,.25);border-radius:20px;padding:36px 40px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(232,67,62,.1);display:flex;align-items:center;gap:32px" onclick="playDirect(\''+g.t+'\')" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 16px 48px rgba(232,67,62,.2)\';this.style.borderColor=\'#e8433e\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'0 8px 32px rgba(232,67,62,.1)\';this.style.borderColor=\'rgba(232,67,62,.25)\'">' +
+          '<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e8433e,#8b5cf6)"></div>' +
+          '<div style="position:absolute;top:14px;right:16px;font-size:13px;font-weight:800;letter-spacing:.5px;padding:6px 16px;border-radius:8px;background:#e8433e;color:#fff;animation:pulse 2s infinite">\ud83d\udd34 CANLI YAYIN</div>' +
+          '<div style="width:100px;height:100px;border-radius:22px;background:rgba(232,67,62,.15);display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0;border:1px solid rgba(232,67,62,.2)">'+g.e+'</div>' +
+          '<div style="flex:1"><h3 style="font-size:26px;font-weight:800;color:#fff;margin-bottom:6px">'+g.n+'</h3><p style="font-size:16px;color:var(--t2);line-height:1.5">'+g.d+'</p><span style="display:inline-block;margin-top:10px;font-size:14px;font-weight:700;padding:6px 16px;border-radius:8px;background:rgba(232,67,62,.08);color:#e8433e">'+g.diff+'</span></div>' +
+          '</div>';
+      }
+      return '<div class="gc-new" onclick="playDirect(\''+g.t+'\')"><div class="gc-i" style="background:'+g.ib+'">'+g.e+'</div><h3>'+g.n+'</h3><p>'+g.d+'</p><span class="diff" style="background:'+g.dc+'">'+g.diff+'</span></div>';
     }).join('');
   }
 
