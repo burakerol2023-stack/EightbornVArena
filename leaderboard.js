@@ -40,8 +40,8 @@ async function loadLbGame(game) {
   h += '<span style="text-align:center">#</span><span>Oyuncu</span><span style="text-align:right">Puan</span><span style="text-align:right">Oyun</span></div>';
 
   lb.forEach(function(u, i) {
-    var rankColor = i === 0 ? 'color:#f59e0b' : i === 1 ? 'color:#94a3b8' : i === 2 ? 'color:#d97706' : 'color:var(--t3)';
-    var avBg = i === 0 ? 'background:rgba(245,158,11,.08);color:#f59e0b' : i === 2 ? 'background:rgba(217,119,6,.06);color:#d97706' : 'background:var(--bg4);color:var(--t2)';
+    var rankColor = i === 0 ? 'color:#f59e0b' : i === 1 ? 'color:#a8b8d0' : i === 2 ? 'color:#cd7f32' : 'color:var(--t3)';
+    var avBg = i === 0 ? 'background:rgba(245,158,11,.1);color:#f59e0b' : i === 1 ? 'background:rgba(168,184,208,.1);color:#a8b8d0' : i === 2 ? 'background:rgba(205,127,50,.1);color:#cd7f32' : 'background:var(--bg4);color:var(--t2)';
     var score = parseInt(u.total_score || u.score || 0);
     var games = parseInt(u.games_played || u.plays || 0);
 
