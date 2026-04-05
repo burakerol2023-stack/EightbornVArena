@@ -336,7 +336,8 @@ window.addEventListener('load', function() {
       {e:'\ud83c\udfb2',t:'FATE',n:'Kaderini Seç',d:'Öldür, evlen, ghostla, kaç — kaderi sen belirle',diff:'Kolay',dc:'rgba(45,212,191,.08);color:#2dd4bf',ib:'rgba(232,67,62,.1)'},
       {e:'\ud83e\udd14',t:'FACE',n:'Yüzden Bil',d:'Bulanık fotoğraftan karakterin kim olduğunu bul',diff:'Zor',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(45,212,191,.1)'},
       {e:'\ud83e\udde0',t:'MEM',n:'Eightborn Moruq',d:'Sunucu hakkında ne kadar bilgilisin? Test et',diff:'Çok Zor',dc:'rgba(232,67,62,.08);color:#e8433e',ib:'rgba(96,165,250,.1)'},
-      {e:'\u2753',t:'WHO',n:'Sen Kimsin?',d:'Kişilik testine gir — hangi karaktere benziyorsun?',diff:'KEŞFET!',dc:'rgba(139,92,246,.08);color:#8b5cf6',ib:'rgba(139,92,246,.1)'}
+      {e:'\u2753',t:'WHO',n:'Sen Kimsin?',d:'Kişilik testine gir — hangi karaktere benziyorsun?',diff:'KEŞFET!',dc:'rgba(139,92,246,.08);color:#8b5cf6',ib:'rgba(139,92,246,.1)'},
+      {e:'\ud83c\udfae',t:'RPSIM',n:'RP Simülasyonu',d:'Şehrin kralı mı olacaksın soytarısı mı?',diff:'YAKINDA',dc:'rgba(100,100,100,.08);color:#666',ib:'rgba(100,100,100,.1)',soon:true}
     ];
     // Apply custom names
     var cn=window._customGameNames||{};
@@ -346,9 +347,13 @@ window.addEventListener('load', function() {
     });
     var cn=window._customGameNames||{};games.forEach(function(g){if(cn[g.t+'_name'])g.n=cn[g.t+'_name'];if(cn[g.t+'_desc'])g.d=cn[g.t+'_desc'];});
     return games.filter(function(g){
+      if(g.soon) return true;
       var gd=GD.find(function(x){return x.t===g.t});
       return gd&&gd.on;
     }).map(function(g){
+      if(g.soon) {
+        return '<div class="gc-new" style="opacity:.5;cursor:default;pointer-events:none;position:relative"><div style="position:absolute;top:12px;right:12px;font-size:11px;font-weight:800;letter-spacing:.5px;padding:4px 10px;border-radius:6px;background:#666;color:#fff">YAKINDA</div><div class="gc-i" style="background:'+g.ib+'">'+g.e+'</div><h3>'+g.n+'</h3><p>'+g.d+'</p><span class="diff" style="background:'+g.dc+'">'+g.diff+'</span></div>';
+      }
       if(g.str) {
         return '<div style="grid-column:span 4;background:linear-gradient(135deg,rgba(232,67,62,.1),rgba(139,92,246,.06));border:2px solid rgba(232,67,62,.25);border-radius:20px;padding:36px 40px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(232,67,62,.1);display:flex;align-items:center;gap:32px" onclick="playDirect(\''+g.t+'\')" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 16px 48px rgba(232,67,62,.2)\';this.style.borderColor=\'#e8433e\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'0 8px 32px rgba(232,67,62,.1)\';this.style.borderColor=\'rgba(232,67,62,.25)\'">' +
           '<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e8433e,#8b5cf6)"></div>' +
