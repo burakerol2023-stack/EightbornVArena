@@ -137,7 +137,7 @@ function memAnswer(idx) {
   });
   
   if (isCorrect) { s.correct++; showMemNotif('✅', 'Doğru!', true); }
-  else { showMemNotif('❌', 'Yanlış! Doğru: ' + q.o[q.ci], false); }
+  else { s.wrong++; showMemNotif('❌', 'Yanlış! Doğru: ' + q.o[q.ci], false); }
   
   s.answers.push({ q: q, picked: idx, correct: isCorrect });
   s.current++;
