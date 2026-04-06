@@ -45,7 +45,7 @@ function renderWhoQ() {
 
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 20px">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#e8433e,#e8433e);width:48px;height:48px;font-size:32px">🪞</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:28px">Soru ${num}/${total}</h2>
@@ -245,7 +245,7 @@ function renderWhoResult(result, reason) {
         
         <div style="display:flex;justify-content:center;gap:12px;margin-top:36px;animation:fu .6s ease .4s both">
           <button class="btn bp" onclick="whoStart()">🔄 Tekrar Test</button>
-          <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+          
         </div>
       </div>
     </div>`;
