@@ -68,105 +68,15 @@ function gW(){toast('Seçildi!');bk()}
 window.addEventListener('load', function() {
 
   // ═══ SOUND SYSTEM ═══
-  var _audioCtx = null;
-  function _getAudio() {
-    if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    return _audioCtx;
-  }
-  
-  // Click sound - short pleasant beep
-  window.playClick = function() {
-    try {
-      var ctx = _getAudio();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(800, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(600, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.1);
-    } catch(e) {}
-  };
-
-  // Correct sound - happy double beep
-  window.playCorrect = function() {
-    try {
-      var ctx = _getAudio();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime);
-      osc.frequency.setValueAtTime(1100, ctx.currentTime + 0.1);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime + 0.1);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.25);
-    } catch(e) {}
-  };
-
-  // Wrong sound - low buzz
-  window.playWrong = function() {
-    try {
-      var ctx = _getAudio();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(200, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.3);
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-      osc.start(ctx.currentTime);
-      osc.stop(ctx.currentTime + 0.3);
-    } catch(e) {}
-  };
-
-  // Global click handler for ALL buttons
-  document.addEventListener('click', function(e) {
-    var el = e.target;
-    // Walk up to find button/clickable
-    for (var i = 0; i < 5; i++) {
-      if (!el) break;
-      if (el.tagName === 'BUTTON' || el.classList.contains('btn') || el.classList.contains('t-card') || el.classList.contains('gc-new') || el.onclick || el.style.cursor === 'pointer') {
-        playClick();
-        return;
-      }
-      el = el.parentElement;
-    }
-  }, true);
-
-  // Override showGameNotif to play sounds
-  var _origShowGameNotif = window.showGameNotif;
-  window.showGameNotif = function(emoji, text, isGood) {
-    if (isGood) playCorrect(); else playWrong();
-    if (typeof _origShowGameNotif === 'function') _origShowGameNotif(emoji, text, isGood);
-  };
-
-  // Override showMemNotif to play sounds
-  var _origShowMemNotif = window.showMemNotif;
-  if (typeof showMemNotif === 'function') {
-    window.showMemNotif = function(emoji, text, isGood) {
-      if (isGood) playCorrect(); else playWrong();
-      if (typeof _origShowMemNotif === 'function') _origShowMemNotif(emoji, text, isGood);
-    };
-  }
-
-  // Override toast to play sounds for correct/wrong
-  var _origToast = window.toast;
-  window.toast = function(msg, ok) {
-    if (ok === false) playWrong();
-    else if (typeof ok === 'undefined' || ok === true) { if (msg && (msg.includes('✅') || msg.includes('Doğru'))) playCorrect(); else playClick(); }
-    if (typeof _origToast === 'function') _origToast(msg, ok);
-  };
-
+  var _audioCtx=null;
+  function _getAudio(){if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();return _audioCtx}
+  window.playClick=function(){try{var c=_getAudio(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(800,c.currentTime);o.frequency.exponentialRampToValueAtTime(600,c.currentTime+.08);g.gain.setValueAtTime(.15,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.1);o.start(c.currentTime);o.stop(c.currentTime+.1)}catch(e){}};
+  window.playCorrect=function(){try{var c=_getAudio(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(880,c.currentTime);o.frequency.setValueAtTime(1100,c.currentTime+.1);g.gain.setValueAtTime(.15,c.currentTime);g.gain.setValueAtTime(.15,c.currentTime+.1);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.25);o.start(c.currentTime);o.stop(c.currentTime+.25)}catch(e){}};
+  window.playWrong=function(){try{var c=_getAudio(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='square';o.frequency.setValueAtTime(200,c.currentTime);o.frequency.exponentialRampToValueAtTime(120,c.currentTime+.3);g.gain.setValueAtTime(.12,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.3);o.start(c.currentTime);o.stop(c.currentTime+.3)}catch(e){}};
+  document.addEventListener('click',function(e){var el=e.target;for(var i=0;i<5;i++){if(!el)break;if(el.tagName==='BUTTON'||el.classList.contains('btn')||el.classList.contains('gc-new')||el.onclick||el.style.cursor==='pointer'){playClick();return}el=el.parentElement}},true);
+  var _oSGN=window.showGameNotif;window.showGameNotif=function(em,tx,ok){if(ok)playCorrect();else playWrong();if(typeof _oSGN==='function')_oSGN(em,tx,ok)};
+  var _oSMN=window.showMemNotif;if(typeof showMemNotif==='function'){window.showMemNotif=function(em,tx,ok){if(ok)playCorrect();else playWrong();if(typeof _oSMN==='function')_oSMN(em,tx,ok)}}
+  var _oT=window.toast;window.toast=function(m,ok){if(ok===false)playWrong();else if(m&&(m.includes('\u2705')||m.includes('Do\u011fru')))playCorrect();if(typeof _oT==='function')_oT(m,ok)};
 
   // Inject CSS matching approved demo exactly
   var _css = document.createElement('style');
@@ -357,10 +267,9 @@ window.addEventListener('load', function() {
       if(g.str) {
         return '<div style="grid-column:span 4;background:linear-gradient(135deg,rgba(232,67,62,.1),rgba(139,92,246,.06));border:2px solid rgba(232,67,62,.25);border-radius:20px;padding:36px 40px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(232,67,62,.1);display:flex;align-items:center;gap:32px" onclick="playDirect(\''+g.t+'\')" onmouseover="this.style.transform=\'translateY(-4px)\';this.style.boxShadow=\'0 16px 48px rgba(232,67,62,.2)\';this.style.borderColor=\'#e8433e\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'0 8px 32px rgba(232,67,62,.1)\';this.style.borderColor=\'rgba(232,67,62,.25)\'">' +
           '<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e8433e,#8b5cf6)"></div>' +
-          '<div style="position:absolute;top:14px;right:16px;font-size:13px;font-weight:800;letter-spacing:.5px;padding:6px 16px;border-radius:8px;background:#e8433e;color:#fff;animation:pulse 2s infinite">\ud83d\udd34 CANLI YAYIN</div>' +
+          '<div style="position:absolute;top:14px;right:16px;font-size:13px;font-weight:800;letter-spacing:.5px;padding:6px 16px;border-radius:8px;background:#e8433e;color:#fff">\ud83d\udd34 CANLI YAYIN</div>' +
           '<div style="width:100px;height:100px;border-radius:22px;background:rgba(232,67,62,.15);display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0;border:1px solid rgba(232,67,62,.2)">'+g.e+'</div>' +
-          '<div style="flex:1"><h3 style="font-size:26px;font-weight:800;color:#fff;margin-bottom:6px">'+g.n+'</h3><p style="font-size:16px;color:var(--t2);line-height:1.5">'+g.d+'</p><span style="display:inline-block;margin-top:10px;font-size:14px;font-weight:700;padding:6px 16px;border-radius:8px;background:rgba(232,67,62,.08);color:#e8433e">'+g.diff+'</span></div>' +
-          '</div>';
+          '<div style="flex:1"><h3 style="font-size:26px;font-weight:800;color:#fff;margin-bottom:6px">'+g.n+'</h3><p style="font-size:16px;color:var(--t2);line-height:1.5">'+g.d+'</p><span style="display:inline-block;margin-top:10px;font-size:14px;font-weight:700;padding:6px 16px;border-radius:8px;background:rgba(232,67,62,.08);color:#e8433e">'+g.diff+'</span></div></div>';
       }
       return '<div class="gc-new" onclick="playDirect(\''+g.t+'\')"><div class="gc-i" style="background:'+g.ib+'">'+g.e+'</div><h3>'+g.n+'</h3><p>'+g.d+'</p><span class="diff" style="background:'+g.dc+'">'+g.diff+'</span></div>';
     }).join('');
@@ -373,10 +282,8 @@ window.addEventListener('load', function() {
   var _origGo=window.go;
   window.go=function(pg){
     if(pg==='home'||pg==='lb'||pg==='contact'){goSec(pg);return;}
-    // Hide p-home first
     var _ph=document.getElementById('p-home');
     if(_ph){_ph.classList.add('hid');_ph.style.display='none';}
-    // Admin: direct handling
     if(pg==='admin'){
       if(typeof curUser==='undefined'||!curUser||curUser.role!=='ADMIN'){if(typeof toast==='function')toast('Admin yetkisi gerekli!',false);goSec('home');return;}
       document.querySelectorAll('[id^="p-"]').forEach(function(e){e.classList.add('hid');e.style.display='none';});
@@ -386,7 +293,6 @@ window.addEventListener('load', function() {
       if(typeof rAdm==='function')rAdm();
       return;
     }
-    // Everything else: use original go
     if(typeof _origGo==='function'){try{_origGo(pg);}catch(e){console.error('go error:',e);}}
   };
 
@@ -402,9 +308,11 @@ window.addEventListener('load', function() {
   // Force load ads FIRST (before page build)
   if(typeof apiGet==='function'){
     apiGet('/init').then(function(r){
-      if(r&&r.ads){
-        window.adConfig=r.ads;
-        try{sessionStorage.setItem('ebv_ads',JSON.stringify(r.ads));}catch(e){}
+      var ac=r.ads_config||r.ads;
+      if(ac){
+        try{if(typeof ac==='string')ac=JSON.parse(ac);}catch(e){}
+        window.adConfig=ac;
+        try{sessionStorage.setItem('ebv_ads',JSON.stringify(ac));}catch(e){}
         if(typeof applyAds==='function')applyAds();
       }
     }).catch(function(){});
