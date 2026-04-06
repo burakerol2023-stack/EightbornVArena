@@ -328,7 +328,7 @@ function aUsers(e){
     // Users section
     h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><h3 class="fd" style="font-weight:600;font-size:15px">\ud83d\udc64 Kullan\u0131c\u0131 Y\u00f6netimi <span class="badge bv">'+uu.length+' kullan\u0131c\u0131</span></h3></div>';
     if(uu.length>0){
-      h+='<div class="card" style="padding:0;overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr style="border-bottom:1px solid var(--b1);font-size:11px;color:var(--t3)"><th style="text-align:left;padding:10px 14px">#</th><th style="text-align:left;padding:10px">Kullan\u0131c\u0131</th><th style="text-align:left;padding:10px">E-posta</th><th style="text-align:center;padding:10px">Rol</th><th style="text-align:center;padding:10px">Durum</th><th style="text-align:center;padding:10px">Kay\u0131t</th><th style="text-align:right;padding:10px 14px">\u0130\u015flem</th></tr></thead><tbody>';
+      h+='<div class="card" style="padding:0;overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr style="border-bottom:1px solid var(--b1);font-size:11px;color:var(--t3)"><th style="text-align:left;padding:10px 14px">#</th><th style="text-align:left;padding:10px">Kullan\u0131c\u0131</th><th style="text-align:left;padding:10px">E-posta</th><th style="text-align:center;padding:10px">Rol</th><th style="text-align:center;padding:10px">Durum</th><th style="text-align:center;padding:10px">Kay\u0131t</th><th style="text-align:center;padding:10px">Son G\u00f6r\u00fclme</th><th style="text-align:right;padding:10px 14px">\u0130\u015flem</th></tr></thead><tbody>';
       for(var i=0;i<uu.length;i++){
         var u=uu[i];
         var d=new Date(u.created_at);
@@ -344,6 +344,9 @@ function aUsers(e){
         else{h+='<span style="font-size:12px;padding:3px 10px;border-radius:6px;background:'+(isOnline?'#2dd4bf15':'#ff980020')+';color:'+(isOnline?'var(--m)':'#ff9800')+';font-weight:600">'+(isOnline?'\ud83d\udfe2 Online':'\u26aa Offline')+'</span>';}
         h+='</td>';
         h+='<td style="padding:10px;text-align:center;font-size:12px;color:var(--t3)">'+tarih+'</td>';
+        var la=u.last_active?new Date(u.last_active):null;
+        var lastSeen=la?la.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+la.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):'—';
+        h+='<td style="padding:10px;text-align:center;font-size:12px;color:var(--t2)">'+lastSeen+'</td>';
         h+='<td style="padding:10px 14px;text-align:right">';
         if(u.role!=='ADMIN'){
           h+='<button class="btn bg bsm" style="color:'+(u.streamer?'var(--t3)':'#ff4444')+';margin-right:4px" onclick="toggleStreamerPerm('+u.id+',this)">'+(u.streamer?'\ud83c\udfa5 Yay\u0131nc\u0131 Kald\u0131r':'\ud83c\udfa5 Yay\u0131nc\u0131 Yap')+'</button>';
