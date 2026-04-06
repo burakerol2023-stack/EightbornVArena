@@ -66,7 +66,7 @@ function renderMemQ() {
   
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 20px">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#e8433e,#3b82f6);width:48px;height:48px;font-size:22px">🧠</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:28px">Soru ${num}/${total}</h2>
@@ -137,7 +137,7 @@ function memAnswer(idx) {
   });
   
   if (isCorrect) { s.correct++; showMemNotif('✅', 'Doğru!', true); }
-  else { s.wrong++; showMemNotif('❌', 'Yanlış! Doğru: ' + q.o[q.ci], false); }
+  else { showMemNotif('❌', 'Yanlış! Doğru: ' + q.o[q.ci], false); }
   
   s.answers.push({ q: q, picked: idx, correct: isCorrect });
   s.current++;
@@ -178,7 +178,7 @@ function renderMemResult() {
         <div style="display:flex;justify-content:center;gap:12px;margin-top:16px">
           <button class="btn bp" onclick="memStart()">🔄 Tekrar Oyna</button>
           <button class="btn bs" onclick="go('lb')">🏆 Sıralama</button>
-          <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+          
         </div>
       </div>
     </div>`;
