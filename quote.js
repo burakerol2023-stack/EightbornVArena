@@ -82,7 +82,7 @@ function renderQuoteCard() {
   const ag = document.getElementById('ag');
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 20px">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#f59e0b,#eab308);width:48px;height:48px;font-size:22px">💬</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:28px">Replik Bil</h2>
@@ -176,7 +176,7 @@ function renderQuoteResult() {
         
         <div style="display:flex;justify-content:center;gap:12px;margin-top:32px">
           <button class="btn bp" onclick="quoteStart()">🔄 Tekrar Oyna</button>
-          <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+          
         </div>
       </div>
     </div>`;
