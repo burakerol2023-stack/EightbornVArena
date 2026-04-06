@@ -61,7 +61,7 @@ function renderFaceCard() {
   
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 20px">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#2dd4bf,#2dd4bf);width:48px;height:48px;font-size:22px">🤔</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:28px">Yüzden Bil</h2>
@@ -163,7 +163,7 @@ function renderFaceResult() {
         
         <div style="display:flex;justify-content:center;gap:12px;margin-top:32px">
           <button class="btn bp" onclick="faceStart()">🔄 Tekrar Oyna</button>
-          <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+          
         </div>
       </div>
     </div>`;
