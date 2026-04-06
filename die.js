@@ -77,7 +77,7 @@ function renderDieMatch() {
   
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 0">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#e8433e,#e8433e);width:72px;height:72px;font-size:36px">💀</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:32px">${getDieStageName()}</h2>
@@ -221,7 +221,7 @@ function renderDieSurvivor() {
       
       <div style="display:flex;justify-content:center;gap:10px;margin-top:28px">
         <button class="btn bp" onclick="dieStart()">🔄 Yeni Oyun</button>
-        <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+        
       </div>
     </div></div>`;
   
