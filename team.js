@@ -65,7 +65,7 @@ function renderTeamCard() {
   
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 20px">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#3b82f6,#06b6d4);width:48px;height:48px;font-size:22px">👥</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:28px">Ekibini Kur</h2>
@@ -214,7 +214,7 @@ function renderTeamResult() {
         
         <div style="display:flex;justify-content:center;gap:12px;margin-top:32px">
           <button class="btn bp" onclick="teamStart()">🔄 Yeni Oyun</button>
-          <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+          
         </div>
       </div>
     </div>`;
