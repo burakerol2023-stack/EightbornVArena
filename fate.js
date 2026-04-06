@@ -86,7 +86,7 @@ function renderFateCard() {
   
   ag.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;padding:10px 20px">
-      <button class="btn bg bsm" onclick="bk()">← Çık</button>
+      
       <div class="gi" style="background:linear-gradient(135deg,#e8433e,#e8433e);width:48px;height:48px;font-size:22px">🎭</div>
       <div style="flex:1">
         <h2 class="fd" style="font-weight:700;font-size:28px">Kaderini Seç</h2>
@@ -214,7 +214,7 @@ function renderFateResult() {
         
         <div style="display:flex;justify-content:center;gap:12px;margin-top:32px">
           <button class="btn bp" onclick="fateStart()">🔄 Tekrar Oyna</button>
-          <button class="btn bs" onclick="bk()">Oyunlara Dön</button>
+          
         </div>
       </div>
     </div>`;
